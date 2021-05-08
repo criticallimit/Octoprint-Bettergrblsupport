@@ -366,7 +366,7 @@ class BetterGrblSupportPlugin(octoprint.plugin.SettingsPlugin,
                 if line.upper().lstrip().startswith("X"):
                     match = re.search(r"^X *(-?[\d.]+).*", line)
                     if not match is None:
-                        command = "G01 " + line.upper().strip()
+                        command = "G1 " + line.upper().strip()
                     else:
                         command = line.upper().strip()
                 else:
