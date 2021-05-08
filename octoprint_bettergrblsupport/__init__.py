@@ -565,7 +565,7 @@ class BetterGrblSupportPlugin(octoprint.plugin.SettingsPlugin,
                                                                                 speed=self.grblSpeed,
                                                                                 power=self.grblPowerLevel))
                 self.timeRef = currentTime
-
+time.sleep(1)
         return (command, )
 
     # #-- gcode received hook (
