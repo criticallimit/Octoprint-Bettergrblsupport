@@ -66,7 +66,7 @@ class BetterGrblSupportPlugin(octoprint.plugin.SettingsPlugin,
         self.grblSettingsNames = {}
         self.grblSettings = {}
 
-        self.ignoreErrors = False
+        self.ignoreErrors = True
         self.doSmoothie = False
 
         self.customControlsJson = r'[{"layout": "horizontal", "children": [{"commands": ["$10=0", "G28.1", "G92 X0 Y0 Z0"], "name": "Set Origin", "confirm": null}, {"command": "M999", "name": "Reset", "confirm": null}, {"commands": ["G1 F4000 S0", "M5", "$SLP"], "name": "Sleep", "confirm": null}, {"command": "$X", "name": "Unlock", "confirm": null}, {"commands": ["$32=0", "M4 S1"], "name": "Weak Laser", "confirm": null}, {"commands": ["$32=1", "M5"], "name": "Laser Off", "confirm": null}], "name": "Laser Commands"}, {"layout": "vertical", "type": "section", "children": [{"regex": "<([^,]+)[,|][WM]Pos:([+\\-\\d.]+,[+\\-\\d.]+,[+\\-\\d.]+)", "name": "State", "default": "", "template": "State: {0} - Position: {1}", "type": "feedback"}, {"regex": "F([\\d.]+) S([\\d.]+)", "name": "GCode State", "default": "", "template": "Speed: {0}  Power: {1}", "type": "feedback"}], "name": "Realtime State"}]'
@@ -109,7 +109,7 @@ class BetterGrblSupportPlugin(octoprint.plugin.SettingsPlugin,
             overrideM9 = False,
             m8Command = "/home/pi/bin/tplink_smartplug.py -t air-assist.shellware.com -c on",
             m9Command = "/home/pi/bin/tplink_smartplug.py -t air-assist.shellware.com -c off",
-            ignoreErrors = False,
+            ignoreErrors = True,
             doSmoothie = False
         )
     # def on_settings_initialized(self):
@@ -580,19 +580,19 @@ class BetterGrblSupportPlugin(octoprint.plugin.SettingsPlugin,
              # This makes Octoprint recognise the startup message as a successful connection.
             return 'ok ' + line
 
-        # look for an alarm
-        if line.lower().startswith('alarm:'):
-            match = re.search(r'alarm:\ *(-?[\d.]+)', line.lower())
-
-            if not match is None:
-                error = int(match.groups(1)[0])
-                self._plugin_manager.send_plugin_message(self._identifier, dict(type="grbl_alarm",
-                                                                                code=error,
-                                                                                description=self.grblAlarms.get(error)))
-
-                self._logger.info("alarm received: {} = {}".format(error, self.grblAlarms.get(error)))
-
-            return 'Error: ' + line
+       # # look for an alarm
+       # if line.lower().startswith('alarm:'):
+       #     match = re.search(r'alarm:\ *(-?[\d.]+)', line.lower())
+#
+ #           if not match is None:
+  #              error = int(match.groups(1)[0])
+   #             self._plugin_manager.send_plugin_message(self._identifier, dict(type="grbl_alarm",
+    #                                                                            code=error,
+     #                                                                           description=self.grblAlarms.get(error)))
+#
+ #               self._logger.info("alarm received: {} = {}".format(error, self.grblAlarms.get(error)))
+#
+ #           return 'Error: ' + line
 
         ## look for an error
         #if not self.ignoreErrors and line.lower().startswith('error:'):
