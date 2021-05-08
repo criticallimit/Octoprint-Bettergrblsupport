@@ -742,11 +742,11 @@ class BetterGrblSupportPlugin(octoprint.plugin.SettingsPlugin,
         self._printer.commands("G0 X{:f} F2000 S{}".format(x, self.weakLaserValue))
 
     def send_bounding_box_center_left(self, y, x):
-        self._printer.commands("G0 Y{:f} F2000 S{}".format(y / 2, self.weakLaserValue))
-        self._printer.commands("G0 X{:f} F2000 S{}".format(x, self.weakLaserValue))
-        self._printer.commands("G0 Y{:f} F2000 S{}".format(y * -1, self.weakLaserValue))
-        self._printer.commands("G0 X{:f} F2000 S{}".format(x * -1, self.weakLaserValue))
-        self._printer.commands("G0 Y{:f} F2000 S{}".format(y / 2, self.weakLaserValue))
+        self._printer.commands("G1 Y{:f} F2000 S{}".format(y / 2, self.weakLaserValue))
+        self._printer.commands("G1 X{:f} F2000 S{}".format(x, self.weakLaserValue))
+        self._printer.commands("G1 Y{:f} F2000 S{}".format(y * -1, self.weakLaserValue))
+        self._printer.commands("G1 X{:f} F2000 S{}".format(x * -1, self.weakLaserValue))
+        self._printer.commands("G1 Y{:f} F2000 S{}".format(y / 2, self.weakLaserValue))
 
     def send_bounding_box_center(self, y, x):
         self._printer.commands("G0 X{:f} Y{:f} F4000".format(x / 2 * -1, y / 2))
