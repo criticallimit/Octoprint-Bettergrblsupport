@@ -703,13 +703,13 @@ class BetterGrblSupportPlugin(octoprint.plugin.SettingsPlugin,
 
 
     def send_frame_init_gcode(self):
-        self._printer.commands("G4 P0")
-        self._printer.commands("$32=0")
+        # self._printer.commands("G4 P0")
+        self._printer.commands("$32=1")
         self._printer.commands("G00 G17 G40 G21 G54")
-        self._printer.commands("G91")
+        # self._printer.commands("G91")
         # self._printer.commands("$32=0")
-        self._printer.commands("M4 F1000 S{}".format(self.weakLaserValue))
-        self._printer.commands("G91")
+        # self._printer.commands("M4 F1000 S{}".format(self.weakLaserValue))
+        # self._printer.commands("G91")
         # self._printer.commands("M8")
 
     def send_frame_end_gcode(self):
